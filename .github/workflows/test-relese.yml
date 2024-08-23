@@ -1,0 +1,34 @@
+name: Compile Affinity Wine
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Install packs
+      run: sudo apt install wget -y
+    - name: Download file
+      run: wget -O ${{ github.workspace }}/test.zip https://github.com/MastaG/mesa-turnip-ppa/releases/download/24.3.0-devel_b97e102/turnip_Aug-23-2024_b97e102.zip
+    - name: Upload to releases
+      uses: softprops/action-gh-release@v1
+      with:
+         files: ${{ github.workspace }}/test.zip
+         token: ${{ secrets.GITHUB_TOKEN }}
+         name: test relese
+         tag_name: ${{ github.run_id }}
+         draft: false
+         prerelease: false
+      
