@@ -22,8 +22,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-       sudo pacman -Syu
-       sudo pacman -Sy --needed \
+       sudo pacman -Syu --noconfirm
+       sudo pacman -Sy --noconfirm \
        alsa-lib alsa-plugins git cups desktop-file-utils dosbox ffmpeg fontconfig freetype2 gcc-libs gettext giflib gnutls \
        gst-plugins-base-libs gtk3 libgphoto2 libpcap libpulse libva libxcomposite libxcursor libxi libxinerama libxrandr \
        mingw-w64-gcc opencl-headers opencl-icd-loader samba sane sdl2 v4l-utils vulkan-icd-loader wine-mono \
