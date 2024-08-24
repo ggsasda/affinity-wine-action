@@ -17,12 +17,16 @@ jobs:
     container: archlinux:multilib-devel
 
     steps:
+    - name: Install git
+      run: |
+        sudo pacman -Syu --noconfirm
+        sudo pacman -Sy --needed --noconfirm git
+
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Install dependencies
       run: |
-        sudo pacman -Syu --noconfirm
         sudo pacman -Sy --needed --noconfirm \
         alsa-lib alsa-plugins alsa-utils cups desktop-file-utils dosbox ffmpeg fontconfig freetype2 gcc-libs gettext giflib gnutls \
         gst-plugins-base-libs gtk3 libgphoto2 libpcap libpulse libva libxcomposite libxcursor libxi libxinerama libxrandr \
@@ -35,7 +39,6 @@ jobs:
         git clone https://gitlab.winehq.org/ElementalWarrior/wine.git ${{ github.workspace }}/ElementalWarrior-wine
         cd ${{ github.workspace }}/ElementalWarrior-wine
         git switch affinity-photo3-wine9.13-part3
-        rm -rf ${{ github.workspace }}/ElementalWarrior-wine/.git
 
     - name: Build Wine
       run: |
