@@ -20,24 +20,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Create a non-root user
-      run: |
-        useradd -m builduser
-        echo "builduser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-        sudo -u builduser bash -c "whoami"
-
     - name: Install base-devel and git
       run: |
         sudo pacman -Sy --noconfirm git base-devel
-
-    - name: Install yay (AUR helper)
-      run: |
-        sudo -u builduser bash -c "git clone https://aur.archlinux.org/yay.git"
-        cd yay
-        sudo -u builduser bash -c "cd yay && makepkg -si --noconfirm"
-
-    - name: Install capi20 from AUR
-      run: sudo -u builduser yay -S --noconfirm capi20
 
     - name: Install other dependencies
       run: |
