@@ -22,13 +22,22 @@ jobs:
 
     - name: Install dependencies
       run: |
-       sudo pacman -Syu --noconfirm
-       sudo pacman -Sy --noconfirm \
-       alsa-lib alsa-plugins git cups desktop-file-utils dosbox ffmpeg fontconfig freetype2 gcc-libs gettext giflib gnutls \
-       gst-plugins-base-libs gtk3 libgphoto2 libpcap libpulse libva libxcomposite libxcursor libxi libxinerama libxrandr \
-       mingw-w64-gcc opencl-headers opencl-icd-loader samba sane sdl2 v4l-utils vulkan-icd-loader wine-mono \
-       bzip2 capi20 curl flex krb5 libunwind libusb mesa p11-kit pcsclite smbclient wayland xz xkeyboard-config openal winetricks
+        sudo pacman -Syu --noconfirm
+        sudo pacman -Sy --noconfirm --needed \
+          alsa-lib alsa-plugins cups desktop-file-utils dosbox ffmpeg fontconfig freetype2 gcc-libs gettext giflib gnutls \
+          gst-plugins-base-libs gtk3 libgphoto2 libpcap libpulse libva libxcomposite libxcursor libxi libxinerama libxrandr \
+          mingw-w64-gcc opencl-headers opencl-icd-loader samba sane sdl2 v4l-utils vulkan-icd-loader wine-mono \
+          bzip2 curl flex krb5 libunwind libusb mesa p11-kit pcsclite smbclient wayland xz xkeyboard-config openal winetricks
 
+    - name: Install yay (AUR helper)
+      run: |
+        sudo pacman -Sy --noconfirm git base-devel
+        git clone https://aur.archlinux.org/yay.git
+        cd yay
+        makepkg -si --noconfirm
+
+    - name: Install capi20 from AUR
+      run: yay -S --noconfirm capi20
 
     - name: Clone Wine repository
       run: |
@@ -42,4 +51,3 @@ jobs:
         mkdir -p ${{ github.workspace }}/winewow64-build/ ${{ github.workspace }}/wine-install/
         cd ${{ github.workspace }}/winewow64-build
         ${{ github.workspace }}/ElementalWarrior-wine/configure --prefix="${{ github.workspace }}/wine-install" --enable-archs=i386,x86_64
-        
