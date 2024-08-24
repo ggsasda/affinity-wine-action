@@ -65,11 +65,17 @@ jobs:
 
     - name: Verify tarball creation
       run: ls -la ${{ github.workspace }}/wine-affinity.tar.gz
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Affinity-Wine-Build-${{ github.run_id }}
+        path: ${{ github.workspace }}/wine-affinity.tar.gz
 
     - name: Upload To Releases
       uses: softprops/action-gh-release@v2
       with:
-        files: ${{ github.workspace }}/wine-affinity.tar.gz
+        files: /home/runner/work/affinity-wine-action/affinity-wine-action/wine-affinity.tar.gz
         token: ${{ secrets.GITHUB_TOKEN }}
         name: ElementalWarrior-wine
         tag_name: affinity-photo3-wine9.13-part3
