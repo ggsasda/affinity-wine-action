@@ -23,8 +23,8 @@ jobs:
     - name: Install dependencies
       run: |
        sudo pacman -Syu
-       sudo pacman -S --needed \
-       alsa-lib alsa-plugins cups desktop-file-utils dosbox ffmpeg fontconfig freetype2 gcc-libs gettext giflib gnutls \
+       sudo pacman -Sy --needed \
+       alsa-lib alsa-plugins git cups desktop-file-utils dosbox ffmpeg fontconfig freetype2 gcc-libs gettext giflib gnutls \
        gst-plugins-base-libs gtk3 libgphoto2 libpcap libpulse libva libxcomposite libxcursor libxi libxinerama libxrandr \
        mingw-w64-gcc opencl-headers opencl-icd-loader samba sane sdl2 v4l-utils vulkan-icd-loader wine-mono \
        bzip2 capi20 curl flex krb5 libunwind libusb mesa p11-kit pcsclite smbclient wayland xz xkeyboard-config openal winetricks
